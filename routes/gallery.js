@@ -22,7 +22,7 @@ router.get('/:id', function(req, res) {
 
 router.get('/',function(req, res){
   res.redirect('/');
-})
+});
 
 router.post('/', function (req, res) {
   Photo.create({
@@ -70,8 +70,8 @@ router.delete('/:id', function(req, res){
     }
   })
   .then(function(){
-    res.redirect('/')
-  })
+    res.redirect('/');
+  });
 });
 
 module.exports = router;
