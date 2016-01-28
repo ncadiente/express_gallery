@@ -1,0 +1,35 @@
+body {
+  background-image: url('./../assets/fiberGlass.png');
+  background-repeat: repeat;
+}
+
+div{
+  border-style: solid;
+  border-top: thick double #999999;
+  border-top-width: 100%;
+}
+
+img{
+  width: 100%;
+  max-width: 500px;
+}
+
+h1 {
+  color:white;
+}
+
+h2{
+  color: white;
+}
+
+h3{
+  color: white;
+}
+
+h4 {
+  color: white;
+}
+
+a {
+  color: white;
+}

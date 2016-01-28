@@ -5,10 +5,12 @@ var db = require('./models');
 var Photo = db.Photo;
 var methodOverride = require('method-override');
 
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.set('views', 'templates');
 app.set('view engine', 'jade');
+
 
 app.use( methodOverride(function( req, res ) {
   if( req.body && typeof req.body === 'object' && '_method' in req.body ) {
