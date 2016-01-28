@@ -6,6 +6,9 @@ var Photo = db.Photo;
 
 app.use(bodyParser.urlencoded({extended:true}));
 
+app.set('views', templates);
+app.set('view engine', 'jade');
+
 app.get('/', function(req, res) {
   Photo.findAll()
     .then(function (photo) {

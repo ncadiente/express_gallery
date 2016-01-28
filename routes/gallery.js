@@ -14,7 +14,7 @@ router.get('/:id', function(req, res) {
     });
 });
 
-router.post('/new', function (req, res) {
+router.post('/', function (req, res) {
   Photo.create({
     title : req.body.title,
     link : req.body.link,
