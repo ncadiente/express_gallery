@@ -1,12 +1,13 @@
-form(method="POST" action="/articles" enctype="application/x-www-form-urlencoded")#form1
-  input(type="hidden" name="_method" value="POST")
+
+
+form(method="POST" action="/gallery" enctype="application/x-www-form-urlencoded")#form1
   p title:
     input(type='text' name="title")
   br
-  p body:
-    input(type='text' name="body")
+  p description:
+    input(type='text' name="description")
   br
-  p author:
-    input(type='text' name="author")
+  p link:
+    input(type='text' name="link")
   br
   button(type="submit" form="form1" value="Submit")#submit Submit

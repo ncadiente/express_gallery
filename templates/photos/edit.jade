@@ -1,0 +1,13 @@
+form(method="POST" action='/gallery/#{photo.id}')#form1
+  input(type='hidden', name='_method', value="PUT")
+  p title:
+    input(type='text' name="title" value='#{photo.title}')
+  br
+  p description:
+    textarea(rows="20" cols="80" name="description" form="form1" value='#{photo.description}')
+      | #{photo.description}
+  br
+  p link:
+    input(type='text' name="link" value='#{photo.link}')
+  br
+  button(type="submit" form="form1" value="Submit")#submit Submit
