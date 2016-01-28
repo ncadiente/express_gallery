@@ -20,8 +20,10 @@ app.use( methodOverride(function( req, res ) {
 
 app.get('/', function(req, res) {
   Photo.findAll()
-    .then(function (photo) {
-      res.json(photo);
+    .then(function (data) {
+      res.render('photos/index', {
+        photos : data
+      });
     });
 });
 

@@ -13,19 +13,26 @@ router.get('/new', function(req, res) {
 
 router.get('/:id', function(req, res) {
   Photo.findById(req.params.id)
-    .then(function (photo) {
-      res.json(photo);
+    .then(function (data) {
+      res.render('photos/single', {
+        photo: data
+      });
     });
 });
 
+router.get('/',function(req, res){
+  res.redirect('/');
+})
 
 router.post('/', function (req, res) {
   Photo.create({
     title : req.body.title,
     link : req.body.link,
     description : req.body.description })
-    .then(function (photo) {
-      res.json(photo);
+    .then(function (data) {
+      res.render('photos/single', {
+        photo : data
+      });
     });
 });
 
@@ -54,6 +61,17 @@ router.put('/:id', function(req, res){
   .then(function(){
     res.redirect('/gallery/' + req.params.id);
   });
+});
+
+router.delete('/:id', function(req, res){
+  Photo.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(function(){
+    res.redirect('/')
+  })
 });
 
 module.exports = router;

@@ -1,0 +1,9 @@
+extends ./../layout
+
+block content
+  each photo in photos
+    h2 #{photo.title}
+    a(href='gallery/#{photo.id}')
+      img(src='#{photo.link}')
+    h3 Description: #{photo.description}
+  a.btn(href='/gallery/new') New
