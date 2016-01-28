@@ -5,6 +5,7 @@ var db = require('./models');
 var Photo = db.Photo;
 var methodOverride = require('method-override');
 
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.set('views', 'templates');

@@ -12,6 +12,7 @@ router.get('/new', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
+  console.log(req.params);
   Photo.findById(req.params.id)
     .then(function (data) {
       res.render('photos/single', {
