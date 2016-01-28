@@ -1,10 +1,6 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    link(type='text/css' rel='stylesheet' href='/css/styles.css')
-    title New
-  body
+extends ./../layout
+
+block content
     form(method="POST" action="/gallery" enctype="application/x-www-form-urlencoded")#form1
       p title:
         br

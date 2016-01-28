@@ -9,7 +9,24 @@ div{
   border-top-width: 100%;
 }
 
-img{
+#content{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center ;
+}
+
+.photoboxMain{
+  flex: 0 1 80%;
+}
+
+.photobox{
+  flex: 0 0 27%;
+}
+
+.photoboxMain img{
+  width: 100%;
+}
+.photobox img{
   width: 100%;
   max-width: 500px;
 }
@@ -23,7 +40,7 @@ h2{
 }
 
 h3{
-  color: white;
+  color: white
 }
 
 h4 {

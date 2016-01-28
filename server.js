@@ -24,6 +24,7 @@ app.get('/', function(req, res) {
   Photo.findAll()
     .then(function (data) {
       res.render('photos/index', {
+        photoMain: data.shift(),
         photos : data
       });
     });

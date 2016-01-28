@@ -1,22 +1,18 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    link(type='text/css' rel='stylesheet' href='/css/styles.css')
-    title Edit
-  body
+extends ./../layout
+
+block content
     form(method="POST" action='/gallery/#{photo.id}')#form1
       input(type='hidden', name='_method', value="PUT")
-    p title:
+      p title:
       br
       input(type='text' size="80" name="title" value='#{photo.title}')
-    br
-    p description:
+      br
+      p description:
       br
       textarea(rows="20" cols="80" name="description" form="form1" value='#{photo.description}')
         | #{photo.description}
-    br
-    p link:
+       br
+      p link:
       br
       input(type='text' size="80" name="link" value='#{photo.link}')
       br
