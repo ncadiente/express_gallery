@@ -12,12 +12,25 @@ router.get('/new', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-  console.log(req.params);
-  Photo.findById(req.params.id)
+  var thumbs;
+  var main;
+  Photo.findAll({where : {
+    id : {
+      $ne : req.params.id
+    }
+  }})
     .then(function (data) {
-      res.render('photos/single', {
-        photo: data
-      });
+      thumbs = data;
+      Photo.findById(req.params.id)
+        .then(function(data){
+          main = data;
+        })
+        .then(function(data){
+          res.render('photos/single', {
+            photo: main,
+            thumbs: thumbs,
+          });
+        });
     });
 });
 
