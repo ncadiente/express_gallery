@@ -4,9 +4,8 @@ body {
 }
 
 div{
-  border-style: solid;
-  border-top: thick double #999999;
-  border-top-width: 100%;
+  /*border-top: thick double #999999;
+  border-top-width: 100%;*/
 }
 
 #content{
@@ -20,7 +19,7 @@ div{
 }
 
 .photobox{
-  flex: 0 0 27%;
+  flex: 0 0 26%;
 }
 
 .photoboxMain img{
@@ -29,6 +28,28 @@ div{
 .photobox img{
   width: 100%;
   max-width: 500px;
+}
+
+#singleDiv{
+  flex-flow: column nowrap;
+}
+#main{
+  width: 66%;
+  flex: 0 0 66%;
+}
+#main img{
+  max-width: 1000px;
+}
+
+#thumbs img{
+  max-width: 300px;
+  flex-flow: column wrap;
+}
+
+.thumbBox {
+  width: 100%;
+  max-width: 500px;
+  flex: 0 1 25%;
 }
 
 h1 {

@@ -1,16 +1,17 @@
 extends ./../layout
 
 block content
-  div#main
-    h2 #{photo.title}
-    img(src='#{photo.link}')
-    h3 Description: #{photo.description}
-    form#deleteForm(method='POST', action='/gallery/#{photo.id}')
-      input(type='hidden', name='_method', value='DELETE')
-      input(type='submit', value='Delete Photo')
-  div#thumbs
-    each thumb in thumbs
-      div.photobox
-        a(href='gallery/#{thumb.id}')
-          img(src='#{thumb.link}')
-        h4 #{thumb.title}
+  div#singleDiv
+    div#main
+      h2 #{photo.title}
+      img(src='#{photo.link}')
+      p Description: #{photo.description}
+      form#deleteForm(method='POST', action='/gallery/#{photo.id}')
+        input(type='hidden', name='_method', value='DELETE')
+        input(type='submit', value='Delete Photo')
+    div#thumbs
+      each thumb in thumbs
+        div.thumbBox
+          a(href='gallery/#{thumb.id}')
+            img(src='#{thumb.link}')
+          h4 #{thumb.title}
