@@ -39,14 +39,13 @@ router.get('/',function(req, res){
 });
 
 router.post('/', function (req, res) {
+  console.log(req.body.id);
   Photo.create({
     title : req.body.title,
     link : req.body.link,
     description : req.body.description })
     .then(function (data) {
-      res.render('photos/single', {
-        photo : data
-      });
+      res.redirect('gallery/' +data.id);
     });
 });
 

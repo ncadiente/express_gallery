@@ -31,14 +31,16 @@ div{
 }
 
 #singleDiv{
-  flex-flow: column nowrap;
+  display: flex;
+  flex-flow: row wrap,
+  justify-content: center,
+  align-items: center,
 }
 #main{
-  width: 66%;
-  flex: 0 0 66%;
+  flex: 0 1 auto;
 }
 #main img{
-  max-width: 1000px;
+  max-width: 66%
 }
 
 #thumbs img{
@@ -47,6 +49,10 @@ div{
 }
 
 .thumbBox {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 500px;
   flex: 0 1 25%;
