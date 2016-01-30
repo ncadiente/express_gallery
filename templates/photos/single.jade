@@ -3,12 +3,12 @@ extends ./../layout
 block content
   div#singleDiv
     div#main
-      img(src='#{photo.link}')
+      img#mainImg(src='#{photo.link}')
       h2 #{photo.title}
-      p Description: #{photo.description}
+      p#mainDesc #{photo.description}
       form#deleteForm(method='POST', action='/gallery/#{photo.id}')
         input(type='hidden', name='_method', value='DELETE')
-        input(type='submit', value='Delete Photo')
+        input#delete(type='submit' value= 'Delete')
     div#thumbs
       each thumb in thumbs
         div.thumbBox

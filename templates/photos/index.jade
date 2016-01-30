@@ -1,11 +1,10 @@
 extends ./../layout
 
 block content
-  a.btn(href='/gallery/new') New
   div#content
     div.photoboxMain
         a(href='gallery/#{photoMain.id}')
-          img(src='#{photoMain.link}')
+          img#indexMain(src='#{photoMain.link}')
     each photo in photos
       div.photobox
         a(href='gallery/#{photo.id}')
