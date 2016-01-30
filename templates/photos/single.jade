@@ -3,8 +3,8 @@ extends ./../layout
 block content
   div#singleDiv
     div#main
-      h2 #{photo.title}
       img(src='#{photo.link}')
+      h2 #{photo.title}
       p Description: #{photo.description}
       form#deleteForm(method='POST', action='/gallery/#{photo.id}')
         input(type='hidden', name='_method', value='DELETE')
@@ -12,6 +12,7 @@ block content
     div#thumbs
       each thumb in thumbs
         div.thumbBox
-          a(href='gallery/#{thumb.id}')
-            img(src='#{thumb.link}')
+          div#imageDiv
+            a(href='#{thumb.id}')
+              img(src='#{thumb.link}')
           h4 #{thumb.title}

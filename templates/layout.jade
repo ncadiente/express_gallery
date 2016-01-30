@@ -3,8 +3,30 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     link(type='text/css' rel='stylesheet' href='/css/styles.css')
-    title Surfer Chicks
+    link(href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Noticia+Text&subset=latin,latin-ext' rel='stylesheet' type='text/css')
+    title Ride A Long
   body
-    a(href='/')
-      h1 Babes who Surf
+    div#top
+      div#topTitle
+        a(href='/' id='h1Title')
+          h1 Ride A Long
+      div#topText
+        p Food truck keffiyeh gastropub, venmo 8-bit pug photo booth tacos. Banh mi kogi brunch jean shorts quinoa messenger bag. Lo-fi bespoke selvage letterpress, cardigan chartreuse chia. Cred iPhone four loko pinterest fingerstache 3 wolf moon, bespoke farm-to-table. Paleo celiac iPhone truffaut authentic.
+    div#navbar
+      div.navItemBox
+        a(href='').navItem#logIn
+          |Log In
+      div.navItemBox#register
+        a(href='').navItem
+          |Register
+      div.navItemBox#create
+        a(href='').navItem
+          |Create
+      div.navItemBox#edit
+        a(href='').navItem
+          |Edit
+      div.navItemBox#delete
+        a(href='').navItem
+          |Delete
     block content
