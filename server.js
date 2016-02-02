@@ -10,6 +10,7 @@ var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
+var loggedInChecker = false;
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -47,6 +48,7 @@ passport.use(new LocalStrategy(
       }
       if(user.username === username && user.password === password){
         console.log('success');
+        loggedInChecker=true;
         return done(null, user);
       }
     });
@@ -75,22 +77,51 @@ app.get('/login', function(req, res){
   res.render('photos/login');
 });
 
+app.get('/register', function(req,res){
+  res.render('photos/register');
+});
+
+app.get('/logout', function(req,res){
+  loggedInChecker=false;
+  req.logout();
+  res.redirect('/login');
+});
+
 app.post('/login', passport.authenticate('local', {
   successRedirect : '/',
   failureRedirect : '/login',
 }));
 
-app.get('/logout', function(req,res){
-  req.logout();
-  res.redirect('/login');
+app.post('/register', function(req,res){
+  Users.findOne({
+    where:{
+      username: req.body.username
+    }
+  })
+  .then(function(data){
+    if(!data){
+      Users.create({
+        username : req.body.username,
+        password : req.body.password
+      })
+      .then(function (data) {
+        res.redirect('/logIn');
+      });
+    } else {
+      res.redirect('/register');
+    }
+  });
+
 });
+
 
 app.get('/', function(req, res) {
   Photo.findAll()
     .then(function (data) {
       res.render('photos/index', {
         photoMain: data.shift(),
-        photos : data
+        photos : data,
+        loggedIn: loggedInChecker
       });
     });
 });

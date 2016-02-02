@@ -1,0 +1,13 @@
+extends ./../layout
+
+block content
+    form(method="POST" action="/register" enctype="application/x-www-form-urlencoded")#form1
+      p username:
+        br
+        input(type='text' size="80" name="username")
+      br
+      p password:
+        br
+        input(type='text' size="80" name="password")
+      br
+      button(type="submit" form="form1" value="Submit")#submit Submit
