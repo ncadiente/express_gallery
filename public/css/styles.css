@@ -4,18 +4,15 @@
 #top {
   display: flex;
   flex-flow: column wrap;
-  background: blue;
   margin-left: 0.5%;
   margin-right: 0.5%; }
   @media only screen and (min-width: 530px) {
     #top {
       flex-flow: row nowrap;
-      background-color: green;
       margin-left: 3%;
       margin-right: 3%; } }
   @media only screen and (min-width: 900px) {
     #top {
-      background-color: red;
       justify-content: space-between;
       margin-left: 3%;
       margin-right: 3%; } }

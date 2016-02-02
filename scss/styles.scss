@@ -9,19 +9,19 @@ $large: "only screen and (min-width:900px)";
 #top{
   display : flex;
   flex-flow: column wrap;
-  background: blue;
+  //background: blue;
   margin-left: 0.5%;
   margin-right: 0.5%;
 
   @media #{$medium}{
   flex-flow: row nowrap;
-  background-color : green;
+  //background-color : green;
   margin-left: 3%;
   margin-right: 3%;
   }
 
   @media#{$large}{
-    background-color : red;
+    //background-color : red;
     justify-content: space-between;
     margin-left: 3%;
     margin-right: 3%;

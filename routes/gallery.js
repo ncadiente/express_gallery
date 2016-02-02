@@ -3,6 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var db = require('./../models');
 var Photo = db.Photo;
+var loggedInChecker = false;
 
 function isAuthenticated(req,res,next){
   if(!req.isAuthenticated()){
@@ -13,7 +14,15 @@ function isAuthenticated(req,res,next){
   return next();
 }
 
+function userAuth(req,res,next){
+  loggedInChecker= req.isAuthenticated();
+  next();
+}
+
+
 router.use(bodyParser.urlencoded({ extended : true }));
+
+router.use(userAuth);
 
 router.get('/new', isAuthenticated, function(req, res) {
   res.render('photos/new');
@@ -37,6 +46,7 @@ router.get('/:id', function(req, res) {
           res.render('photos/single', {
             photo: main,
             thumbs: thumbs,
+            loggedIn: loggedInChecker
           });
         });
     });
