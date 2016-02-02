@@ -77,16 +77,43 @@ app.get('/login', function(req, res){
   res.render('photos/login');
 });
 
-app.post('/login', passport.authenticate('local', {
-  successRedirect : '/',
-  failureRedirect : '/login',
-}));
+app.get('/register', function(req,res){
+  res.render('photos/register');
+});
 
 app.get('/logout', function(req,res){
   loggedInChecker=false;
   req.logout();
   res.redirect('/login');
 });
+
+app.post('/login', passport.authenticate('local', {
+  successRedirect : '/',
+  failureRedirect : '/login',
+}));
+
+app.post('/register', function(req,res){
+  Users.findOne({
+    where:{
+      username: req.body.username
+    }
+  })
+  .then(function(data){
+    if(!data){
+      Users.create({
+        username : req.body.username,
+        password : req.body.password
+      })
+      .then(function (data) {
+        res.redirect('/logIn');
+      })
+    } else {
+      res.redirect('/register');
+    }
+  });
+
+});
+
 
 app.get('/', function(req, res) {
   Photo.findAll()
