@@ -4,10 +4,18 @@ var bodyParser = require('body-parser');
 var db = require('./../models');
 var Photo = db.Photo;
 
+function isAuthenticated(req,res,next){
+  if(!req.isAuthenticated()){
+    console.log('not auth');
+    return res.redirect('/login');
+  }
+  console.log('authenticated');
+  return next();
+}
 
 router.use(bodyParser.urlencoded({ extended : true }));
 
-router.get('/new', function(req, res) {
+router.get('/new', isAuthenticated, function(req, res) {
   res.render('photos/new');
 });
 
@@ -38,7 +46,7 @@ router.get('/',function(req, res){
   res.redirect('/');
 });
 
-router.post('/', function (req, res) {
+router.post('/', isAuthenticated, function (req, res) {
   console.log(req.body.id);
   Photo.create({
     title : req.body.title,
@@ -49,7 +57,7 @@ router.post('/', function (req, res) {
     });
 });
 
-router.get('/:id/edit', function(req, res){
+router.get('/:id/edit', isAuthenticated, function(req, res){
   Photo.findById(req.params.id)
   .then(function(data){
     res.render('photos/edit', {
@@ -58,7 +66,7 @@ router.get('/:id/edit', function(req, res){
   });
 });
 
-router.put('/:id', function(req, res){
+router.put('/:id', isAuthenticated, function(req, res){
   console.log('in put');
   Photo.update(
   {
@@ -76,7 +84,7 @@ router.put('/:id', function(req, res){
   });
 });
 
-router.delete('/:id', function(req, res){
+router.delete('/:id', isAuthenticated, function(req, res){
   Photo.destroy({
     where: {
       id: req.params.id

@@ -9,15 +9,17 @@ var passport = require('passport');
 var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
 var methodOverride = require('method-override');
+var flash = require('connect-flash');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(session(CONFIG.SESSION));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.set('views', 'templates');
 app.set('view engine', 'jade');
+
+app.use(session(CONFIG.SESSION));
+app.use(passport.initialize());
+app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -28,29 +30,33 @@ passport.deserializeUser(function(user, done) {
 
 passport.use(new LocalStrategy(
   function(username, password, done){
-    authenticate(username, password, done);
+    var user;
+    Users.findOne({where : {
+      username : username
+    }})
+    .then(function(data,err){
+      if(err) return done(err);
+      user = data;
+      if(!user){
+        console.log("no user");
+        return done(null, false);
+      }
+      if(user.username === username && user.password !== password){
+        console.log("wrong pw");
+        return done(null, false);
+      }
+      if(user.username === username && user.password === password){
+        console.log('success');
+        return done(null, user);
+      }
+    });
   }
 ));
 
-function authenticate(username, password, done){
-  var userAuth;
-  Users.findOne({where : {
-    username : username
-  }})
-    .then(function(data){
-      userAuth = data;
-    })
-    .then(function(data){
-      if(userAuth.username === username && userAuth.password === password){
-        return done(null, userAuth);
-      } else {
-        return done(null, false);
-      }
-    });
-}
 
 function isAuthenticated(req,res,next){
   if(!req.isAuthenticated()){
+    console.log('not auth');
     return res.redirect('/login');
   }
   console.log('authenticated');
@@ -70,9 +76,14 @@ app.get('/login', function(req, res){
 });
 
 app.post('/login', passport.authenticate('local', {
-  successRedirect : '/new',
-  failureRedirect : '/login'
+  successRedirect : '/',
+  failureRedirect : '/login',
 }));
+
+app.get('/logout', function(req,res){
+  req.logout();
+  res.redirect('/login');
+});
 
 app.get('/', function(req, res) {
   Photo.findAll()
