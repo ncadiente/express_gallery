@@ -13,8 +13,8 @@ function isAuthenticated(req,res,next){
   return next();
 }
 
-router.use(bodyParser.urlencoded({ extended : true }));
 
+router.use(bodyParser.urlencoded({ extended : true }));
 router.get('/new', isAuthenticated, function(req, res) {
   res.render('photos/new');
 });
