@@ -6,9 +6,12 @@ block content
       img#mainImg(src='#{photo.link}')
       h2 #{photo.title}
       p#mainDesc #{photo.description}
-      form#deleteForm(method='POST', action='/gallery/#{photo.id}')
-        input(type='hidden', name='_method', value='DELETE')
-        input#delete(type='submit' value= 'Delete')
+      if loggedIn
+        form#deleteForm(method='POST', action='/gallery/#{photo.id}')
+          input(type='hidden', name='_method', value='DELETE')
+          input#delete(type='submit' value= 'Delete')
+        form#getEditForm(method='GET', action='/gallery/#{photo.id}/edit')
+          input#editButton(type='submit' value='Edit')
     div#thumbs
       each thumb in thumbs
         div.thumbBox

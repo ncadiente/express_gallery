@@ -10,6 +10,7 @@ var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
+var loggedInChecker = false;
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -47,6 +48,7 @@ passport.use(new LocalStrategy(
       }
       if(user.username === username && user.password === password){
         console.log('success');
+        loggedInChecker=true;
         return done(null, user);
       }
     });
@@ -81,6 +83,7 @@ app.post('/login', passport.authenticate('local', {
 }));
 
 app.get('/logout', function(req,res){
+  loggedInChecker=false;
   req.logout();
   res.redirect('/login');
 });
@@ -90,7 +93,8 @@ app.get('/', function(req, res) {
     .then(function (data) {
       res.render('photos/index', {
         photoMain: data.shift(),
-        photos : data
+        photos : data,
+        loggedIn: loggedInChecker
       });
     });
 });
