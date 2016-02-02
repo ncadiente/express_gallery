@@ -28,24 +28,11 @@ passport.deserializeUser(function(user, done) {
 
 passport.use(new LocalStrategy(
   function(username, password, done){
-    var isAuthenticated = authenticate(username, password);
-    if(!isAuthenticated){
-      return done(null, false);
-    }
-    console.log("in strategy");
-    var user;
-    Users.findOne({where : {
-    username : username
-    }})
-    .then(function(data){
-      user = data;
-      return done(null, user);
-    });
+    authenticate(username, password, done);
   }
 ));
 
-function authenticate(username, password){
-  console.log("authenticate function");
+function authenticate(username, password, done){
   var userAuth;
   Users.findOne({where : {
     username : username
@@ -54,7 +41,11 @@ function authenticate(username, password){
       userAuth = data;
     })
     .then(function(data){
-      return(userAuth.username === username && userAuth.password === password);
+      if(userAuth.username === username && userAuth.password === password){
+        return done(null, userAuth);
+      } else {
+        return done(null, false);
+      }
     });
 }
 
