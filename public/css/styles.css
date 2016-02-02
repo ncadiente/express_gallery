@@ -3,26 +3,62 @@
 
 #top {
   display: flex;
-  justify-content: space-between; }
+  flex-flow: column wrap;
+  background: blue;
+  margin-left: 0.5%;
+  margin-right: 0.5%; }
+  @media only screen and (min-width: 530px) {
+    #top {
+      flex-flow: row nowrap;
+      background-color: green;
+      margin-left: 3%;
+      margin-right: 3%; } }
+  @media only screen and (min-width: 900px) {
+    #top {
+      background-color: red;
+      justify-content: space-between;
+      margin-left: 3%;
+      margin-right: 3%; } }
 
 #topTitle {
-  flex: 0 1 69%;
   display: flex;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 0.65); }
-  #topTitle h1 {
-    font-family: 'Amatic SC', cursive;
-    color: #264c73;
-    font-size: 1000%;
-    margin: 0px; }
+  background-color: rgba(255, 255, 255, 0.65);
+  justify-content: center; }
+  @media only screen and (min-width: 530px) {
+    #topTitle {
+      flex: 0 1 69%;
+      justify-content: center; } }
+  @media only screen and (min-width: 900px) {
+    #topTitle {
+      flex: 0 1 69%;
+      justify-content: center; } }
 
 #topText {
   border-left: 5px double #5c8a8a;
-  flex: 0 1 31%;
   font-family: 'Noticia Text', serif;
   padding: 8px; }
+  @media only screen and (min-width: 530px) {
+    #topText {
+      flex: 0 1 31%; } }
+  @media only screen and (min-width: 900px) {
+    #topText {
+      flex: 0 1 31%; } }
   #topText p {
-    color: #5c8a8a; }
+    color: #5c8a8a;
+    margin: 0px; }
+
+h1 {
+  font-family: 'Amatic SC', cursive;
+  color: #264c73;
+  font-size: 1000%;
+  margin: 0px;
+  font-size: 45px; }
+  @media only screen and (min-width: 530px) {
+    h1 {
+      font-size: 110px; } }
+  @media only screen and (min-width: 900px) {
+    h1 {
+      font-size: 120px; } }
 
 #navbar {
   display: flex;
@@ -34,9 +70,15 @@
   color: #5c8a8a;
   font-family: 'Amatic SC', cursive;
   font-weight: bold;
-  font-size: xx-large;
   border-left: 2px double #5c8a8a;
-  padding: 0px 20px 0px 20px; }
+  padding: 0px 20px 0px 20px;
+  font-size: x-large; }
+  @media only screen and (min-width: 530px) {
+    .navItem {
+      font-size: xx-large; } }
+  @media only screen and (min-width: 900px) {
+    .navItem {
+      font-size: xx-large; } }
 
 #logIn {
   border-left: none; }
@@ -51,20 +93,38 @@ body {
   justify-content: center; }
 
 .photoboxMain {
-  flex: 0 1 80%;
+  flex: 0 1 90%;
   margin: 2%; }
+  @media only screen and (min-width: 530px) {
+    .photoboxMain {
+      flex: 0 1 80%;
+      margin: 2%; } }
+  @media only screen and (min-width: 900px) {
+    .photoboxMain {
+      flex: 0 1 80%;
+      margin: 2%; } }
 
 .photobox {
-  flex: 0 0 20%;
-  justify-content: space-between; }
+  justify-content: space-around;
+  padding-bottom: 7px;
+  flex: 0 1 50%; }
+  @media only screen and (min-width: 530px) {
+    .photobox {
+      flex: 0 0 30%; } }
+  @media only screen and (min-width: 900px) {
+    .photobox {
+      flex: 0 0 20%; } }
 
 .photoboxMain img {
   width: 100%; }
 
 .photobox img {
   width: 100%;
-  max-width: 500px;
-  margin: 5px; }
+  padding-left: 3px;
+  padding-right: 3px; }
+  @media only screen and (min-width: 900px) {
+    .photobox img {
+      max-width: 500px; } }
 
 #singleDiv {
   display: flex;
@@ -74,10 +134,15 @@ body {
 #main {
   display: flex;
   flex-flow: column wrap;
-  flex: 0 1 69%;
   justify-content: flex-start;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.65); }
+  @media only screen and (min-width: 530px) {
+    #main {
+      flex: 0 1 69%; } }
+  @media only screen and (min-width: 900px) {
+    #main {
+      flex: 0 1 69%; } }
 
 #mainImg {
   margin-top: 5%;
@@ -92,19 +157,48 @@ body {
   display: flex;
   flex-flow: row wrap; }
 
+#thumbs {
+  flex: 0 1 90%;
+  display: flex;
+  flex-flow: row wrap; }
+  @media only screen and (min-width: 530px) {
+    #thumbs {
+      flex: 0 1 30%;
+      width: 100%; } }
+  @media only screen and (min-width: 900px) {
+    #thumbs {
+      flex: 0 1 30%;
+      width: 250px; } }
+
 #thumbs img {
-  width: 250px;
   margin: 5%;
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+  width: 100%; }
+  @media only screen and (min-width: 530px) {
+    #thumbs img {
+      width: 110%; } }
+  @media only screen and (min-width: 900px) {
+    #thumbs img {
+      width: 250px; } }
 
 .thumbBox {
   display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
+  flex-flow: row wrap;
+  justify-content: space-between;
   width: 100%;
-  max-width: 500px;
-  flex: 0 1 31%; }
+  flex: 0 1 49%;
+  padding-left: 3px;
+  padding-right: 3px; }
+  @media only screen and (min-width: 530px) {
+    .thumbBox {
+      justify-content: space-around;
+      margin: 5px;
+      padding: 5px;
+      flex: 0 1 90%; } }
+  @media only screen and (min-width: 900px) {
+    .thumbBox {
+      max-width: 500px;
+      flex: 0 1 90%; } }
 
 #delete {
   color: #5c8a8a;
@@ -113,8 +207,10 @@ body {
 h2 {
   color: #5c8a8a;
   font-family: 'Amatic SC', cursive;
-  margin: 0px;
-  font-size: 200%; }
+  margin: 0px; }
+  @media only screen and (min-width: 900px) {
+    h2 {
+      font-size: 200%; } }
 
 a:link {
   text-decoration: none; }
@@ -126,11 +222,21 @@ h4 {
   font-family: 'Amatic SC', cursive;
   color: #5c8a8a;
   margin: 0px;
-  margin-bottom: 20px;
-  font-size: 200%; }
+  text-align: right; }
+  @media only screen and (min-width: 900px) {
+    h4 {
+      margin-bottom: 20px;
+      font-size: 200%; } }
 
 a {
   color: white; }
 
 p {
-  color: white; }
+  color: white;
+  font-size: 10px; }
+  @media only screen and (min-width: 530px) {
+    p {
+      font-size: 12px; } }
+  @media only screen and (min-width: 900px) {
+    p {
+      font-size: 12px; } }

@@ -3,41 +3,68 @@
 }
 
 // MEDIA QUERY RANGES
-$medium: "only screen and (min-width:600px)";
+$medium: "only screen and (min-width:530px)";
 $large: "only screen and (min-width:900px)";
 
 #top{
-  // background-color : red;
   display : flex;
-  justify-content: space-between;
+  flex-flow: column wrap;
+  background: blue;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
 
   @media #{$medium}{
-
+  flex-flow: row nowrap;
+  background-color : green;
+  margin-left: 3%;
+  margin-right: 3%;
   }
 
   @media#{$large}{
+    background-color : red;
+    justify-content: space-between;
+    margin-left: 3%;
+    margin-right: 3%;
 
   }
 }
+
 #topTitle{
-  flex: 0 1 69%;
   display: flex;
-  justify-content: center;
   background-color: rgba(255, 255, 255, 0.65);
+  justify-content: center;
+
 
   @media #{$medium}{
+    flex: 0 1 69%;
+    justify-content: center;
+  }
+
+  @media#{$large}{
+    flex: 0 1 69%;
+    justify-content: center;
+
+  }
+}
+
+#topText{
+  border-left: 5px double #5c8a8a;
+  font-family: 'Noticia Text', serif;
+  padding: 8px;
+
+  @media #{$medium}{
+    flex: 0 1 31%;
 
   }
 
   @media#{$large}{
+    flex: 0 1 31%;
 
   }
 
-  h1 {
-    font-family: 'Amatic SC', cursive;
-    color: #264c73;
-    font-size: 1000%;
-    margin : 0px;
+  p {
+    color: #5c8a8a;
+    margin:0px;
 
     @media #{$medium}{
 
@@ -49,22 +76,22 @@ $large: "only screen and (min-width:900px)";
 
   }
 }
-#topText{
-  border-left: 5px double #5c8a8a;
-  flex: 0 1 31%;
-  font-family: 'Noticia Text', serif;
-  padding: 8px;
+
+h1 {
+  font-family: 'Amatic SC', cursive;
+  color: #264c73;
+  font-size: 1000%;
+  margin : 0px;
+  font-size: 45px;
+
 
   @media #{$medium}{
+    font-size: 110px;
 
   }
 
   @media#{$large}{
-
-  }
-
-  p {
-    color: #5c8a8a;
+    font-size: 120px;
   }
 }
 
@@ -87,15 +114,17 @@ $large: "only screen and (min-width:900px)";
   color: #5c8a8a;
   font-family: 'Amatic SC', cursive;
   font-weight: bold;
-  font-size: xx-large;
   border-left: 2px double #5c8a8a;
   padding: 0px 20px 0px 20px;
+  font-size: x-large;
 
   @media #{$medium}{
+    font-size: xx-large;
 
   }
 
   @media#{$large}{
+    font-size: xx-large;
 
   }
 
@@ -108,14 +137,6 @@ $large: "only screen and (min-width:900px)";
 body {
   background-image: url('./../assets/wov.png');
   background-repeat: repeat;
-
-  @media #{$medium}{
-
-  }
-
-  @media#{$large}{
-
-  }
 }
 
 #content{
@@ -123,39 +144,36 @@ body {
   flex-flow: row wrap;
   justify-content: center ;
 
-  @media #{$medium}{
-
-  }
-
-  @media#{$large}{
-
-  }
-
 }
 
 .photoboxMain{
-  flex: 0 1 80%;
-  margin: 2%;
+    flex: 0 1 90%;
+    margin: 2%;
 
   @media #{$medium}{
-
+    flex: 0 1 80%;
+    margin: 2%;
   }
 
   @media#{$large}{
+    flex: 0 1 80%;
+    margin: 2%;
 
   }
 
 }
 
 .photobox{
-  flex: 0 0 20%;
-  justify-content: space-between;
+  justify-content: space-around;
+  padding-bottom: 7px;
+  flex: 0 1 50%;
 
   @media #{$medium}{
-
+    flex: 0 0 30%;
   }
 
   @media#{$large}{
+    flex: 0 0 20%;
 
   }
 
@@ -176,14 +194,14 @@ body {
 
 .photobox img{
   width: 100%;
-  max-width: 500px;
-  margin: 5px;
-
+  padding-left: 3px;
+  padding-right: 3px;
   @media #{$medium}{
 
   }
 
   @media#{$large}{
+    max-width: 500px;
 
   }
 
@@ -193,30 +211,21 @@ body {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-
-  @media #{$medium}{
-
-  }
-
-  @media#{$large}{
-
-  }
-
 }
 
 #main{
   display:flex;
   flex-flow : column wrap;
-  flex: 0 1 69%;
   justify-content: flex-start;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.65);
 
   @media #{$medium}{
-
+    flex: 0 1 69%;
   }
 
   @media#{$large}{
+    flex: 0 1 69%;
 
   }
 
@@ -224,7 +233,7 @@ body {
 
 #mainImg{
   margin-top: 5%;
-  width: 90%
+  width: 90%;
 
   @media #{$medium}{
 
@@ -254,27 +263,41 @@ body {
 #imageDiv{
   display:flex;
   flex-flow: row wrap;
+}
+
+#thumbs{
+  flex: 0 1 90%;
+  display: flex;
+  flex-flow: row wrap;
 
   @media #{$medium}{
+  flex: 0 1 30%;
+  width: 100%;
 
   }
 
   @media#{$large}{
+  flex: 0 1 30%;
+  width: 250px;
 
   }
 
 }
 
 #thumbs img{
-  width: 250px;
   margin: 5%;
-  margin-bottom: 5px
+  margin-bottom: 5px;
+  width: 100%;
+
 
   @media #{$medium}{
+
+    width: 110%;
 
   }
 
   @media#{$large}{
+    width: 250px;
 
   }
 
@@ -282,18 +305,23 @@ body {
 
 .thumbBox {
   display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
+  flex-flow: row wrap;
+  justify-content: space-between;
   width: 100%;
-  max-width: 500px;
-  flex: 0 1 31%;
+  flex: 0 1 49%;
+  padding-left:3px;
+  padding-right: 3px;
 
   @media #{$medium}{
-
+    justify-content: space-around;
+    margin: 5px;
+    padding: 5px;
+    flex: 0 1 90%;
   }
 
   @media#{$large}{
+    max-width: 500px;
+    flex: 0 1 90%;
 
   }
 
@@ -302,15 +330,6 @@ body {
 #delete{
   color: #5c8a8a;
   font-family: 'Amatic SC', cursive;
-
-  @media #{$medium}{
-
-  }
-
-  @media#{$large}{
-
-  }
-
 }
 
 
@@ -318,13 +337,13 @@ h2{
   color: #5c8a8a;
   font-family: 'Amatic SC', cursive;
   margin:0px;
-  font-size: 200%;
 
   @media #{$medium}{
 
   }
 
   @media#{$large}{
+    font-size: 200%;
 
   }
 
@@ -332,15 +351,6 @@ h2{
 
 a:link {
   text-decoration: none
-
-  @media #{$medium}{
-
-  }
-
-  @media#{$large}{
-
-  }
-
 }
 
 
@@ -352,14 +362,15 @@ h4 {
   font-family: 'Amatic SC', cursive;
   color: #5c8a8a;
   margin: 0px;
-  margin-bottom: 20px;
-  font-size: 200%;
+  text-align: right;
 
   @media #{$medium}{
 
   }
 
   @media#{$large}{
+    margin-bottom: 20px;
+    font-size: 200%;
 
   }
 
@@ -371,4 +382,15 @@ a {
 
 p {
   color : white;
+  font-size: 10px;
+
+  @media #{$medium}{
+    font-size: 12px;
+  }
+
+  @media#{$large}{
+    font-size:12px;
+
+  }
+
 }
