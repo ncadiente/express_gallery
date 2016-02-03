@@ -11,6 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
 var loggedInChecker = false;
+var userId;
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -48,6 +49,7 @@ passport.use(new LocalStrategy(
       }
       if(user.username === username && user.password === password){
         console.log('success');
+        userId = user.id;
         loggedInChecker=true;
         return done(null, user);
       }
@@ -106,7 +108,7 @@ app.post('/register', function(req,res){
       })
       .then(function (data) {
         res.redirect('/logIn');
-      })
+      });
     } else {
       res.redirect('/register');
     }

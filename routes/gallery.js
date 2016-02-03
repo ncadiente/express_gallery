@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var db = require('./../models');
 var Photo = db.Photo;
 var loggedInChecker = false;
+var userId;
+
 
 function isAuthenticated(req,res,next){
   if(!req.isAuthenticated()){
@@ -31,6 +33,7 @@ router.get('/new', isAuthenticated, function(req, res) {
 router.get('/:id', function(req, res) {
   var thumbs;
   var main;
+  var user;
   Photo.findAll({where : {
     id : {
       $ne : req.params.id
@@ -43,11 +46,21 @@ router.get('/:id', function(req, res) {
           main = data;
         })
         .then(function(data){
-          res.render('photos/single', {
-            photo: main,
-            thumbs: thumbs,
-            loggedIn: loggedInChecker
-          });
+          if(req.isAuthenticated()){
+            res.render('photos/single', {
+              photo: main,
+              thumbs: thumbs,
+              loggedIn: loggedInChecker,
+              isOwner : (req.user.id === main.UserId)
+            });
+          } else {
+            res.render('photos/single', {
+              photo: main,
+              thumbs: thumbs,
+              loggedIn: loggedInChecker,
+              isOwner : false
+            });
+          }
         });
     });
 });
@@ -61,7 +74,8 @@ router.post('/', isAuthenticated, function (req, res) {
   Photo.create({
     title : req.body.title,
     link : req.body.link,
-    description : req.body.description })
+    description : req.body.description,
+    UserId : req.user.id })
     .then(function (data) {
       res.redirect('gallery/' +data.id);
     });
