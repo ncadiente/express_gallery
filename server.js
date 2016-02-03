@@ -94,7 +94,19 @@ app.post('/login', passport.authenticate('local', {
   failureRedirect : '/login',
 }));
 
-app.post('/register', function(req,res){
+function registerValidation(req,res,next){
+  if(req.body.password !== req.body.passwordVerification){
+    return res.json('password verification did not match');
+  }
+
+  if(req.body.username.length === 0 || req.body.password.length === 0 || req.body.passwordVerification.length === 0){
+    return res.json('All fields need to be filled in');
+  }
+
+  next();
+}
+
+app.post('/register', registerValidation, function(req,res){
   Users.findOne({
     where:{
       username: req.body.username

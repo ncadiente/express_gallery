@@ -168,27 +168,27 @@ body {
       width: 250px; } }
 
 #thumbs img {
-  margin: 5%;
+  margin-top: 5%;
   margin-bottom: 5px;
   width: 100%; }
   @media only screen and (min-width: 530px) {
     #thumbs img {
-      width: 110%; } }
+      width: 100%; } }
   @media only screen and (min-width: 900px) {
     #thumbs img {
-      width: 250px; } }
+      width: 100%; } }
 
 .thumbBox {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   justify-content: space-between;
-  width: 100%;
+  width: 50%;
   flex: 0 1 49%;
   padding-left: 3px;
   padding-right: 3px; }
   @media only screen and (min-width: 530px) {
     .thumbBox {
-      justify-content: space-around;
+      justify-content: space-between;
       margin: 5px;
       padding: 5px;
       flex: 0 1 90%; } }
@@ -201,10 +201,16 @@ body {
   color: #5c8a8a;
   font-family: 'Amatic SC', cursive; }
 
+#editButton {
+  color: #5c8a8a;
+  font-family: 'Amatic SC', cursive;
+  font-size: 16px;
+  margin-top: 20px; }
+
 h2 {
   color: #5c8a8a;
   font-family: 'Amatic SC', cursive;
-  margin: 0px; }
+  margin-top: 15px; }
   @media only screen and (min-width: 900px) {
     h2 {
       font-size: 200%; } }
@@ -219,21 +225,25 @@ h4 {
   font-family: 'Amatic SC', cursive;
   color: #5c8a8a;
   margin: 0px;
-  text-align: right; }
+  text-align: right;
+  font-size: 150%; }
+  @media only screen and (min-width: 530px) {
+    h4 {
+      font-size: 150%; } }
   @media only screen and (min-width: 900px) {
     h4 {
       margin-bottom: 20px;
-      font-size: 200%; } }
+      font-size: 210%; } }
 
 a {
   color: white; }
 
 p {
-  color: white;
-  font-size: 10px; }
+  color: #5c8a8a;
+  font-size: 14px; }
   @media only screen and (min-width: 530px) {
     p {
-      font-size: 12px; } }
+      font-size: 14px; } }
   @media only screen and (min-width: 900px) {
     p {
-      font-size: 12px; } }
+      font-size: 16px; } }
