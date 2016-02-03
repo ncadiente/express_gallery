@@ -173,14 +173,14 @@ body {
   width: 100%; }
   @media only screen and (min-width: 530px) {
     #thumbs img {
-      width: 110%; } }
+      width: 100%; } }
   @media only screen and (min-width: 900px) {
     #thumbs img {
-      width: 250px; } }
+      width: 100%; } }
 
 .thumbBox {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   justify-content: space-between;
   width: 100%;
   flex: 0 1 49%;
@@ -219,21 +219,25 @@ h4 {
   font-family: 'Amatic SC', cursive;
   color: #5c8a8a;
   margin: 0px;
-  text-align: right; }
+  text-align: right;
+  font-size: 150%; }
+  @media only screen and (min-width: 530px) {
+    h4 {
+      font-size: 150%; } }
   @media only screen and (min-width: 900px) {
     h4 {
       margin-bottom: 20px;
-      font-size: 200%; } }
+      font-size: 210%; } }
 
 a {
   color: white; }
 
 p {
   color: white;
-  font-size: 10px; }
+  font-size: 14px; }
   @media only screen and (min-width: 530px) {
     p {
-      font-size: 12px; } }
+      font-size: 14px; } }
   @media only screen and (min-width: 900px) {
     p {
-      font-size: 12px; } }
+      font-size: 16px; } }
