@@ -168,7 +168,7 @@ body {
       width: 250px; } }
 
 #thumbs img {
-  margin: 5%;
+  margin-top: 5%;
   margin-bottom: 5px;
   width: 100%; }
   @media only screen and (min-width: 530px) {
@@ -182,13 +182,13 @@ body {
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
-  width: 100%;
+  width: 50%;
   flex: 0 1 49%;
   padding-left: 3px;
   padding-right: 3px; }
   @media only screen and (min-width: 530px) {
     .thumbBox {
-      justify-content: space-around;
+      justify-content: space-between;
       margin: 5px;
       padding: 5px;
       flex: 0 1 90%; } }
@@ -200,6 +200,12 @@ body {
 #delete {
   color: #5c8a8a;
   font-family: 'Amatic SC', cursive; }
+
+#editButton {
+  color: #5c8a8a;
+  font-family: 'Amatic SC', cursive;
+  font-size: 16px;
+  margin-top: 20px; }
 
 h2 {
   color: #5c8a8a;
