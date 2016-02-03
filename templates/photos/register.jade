@@ -2,17 +2,19 @@ extends ./../layout
 
 block content
     h2 Register
-    form(method="POST" action="/register" enctype="application/x-www-form-urlencoded")#form1
-      p username:
-        br
-        input(type='text' size="80" name="username")
-      br
-      p password:
-        br
-        input(type='text' size="80" name="password")
-      br
-      p verify password:
-        br
-        input(type='text' size="80" name="passwordVerification")
-      br
-      button(type="submit" form="form1" value="Submit")#submit Submit
+    div#form
+      form(method="POST" action="/register" enctype="application/x-www-form-urlencoded")#form1
+        div#formContent
+          p username:
+            br
+            input(type='text' size="80" name="username")
+          br
+          p password:
+            br
+            input(type='text' size="80" name="password")
+          br
+          p verify password:
+            br
+            input(type='text' size="80" name="passwordVerification")
+          br
+          button(type="submit" form="form1" value="Submit")#submit Submit
