@@ -6,7 +6,7 @@ block content
       img#mainImg(src='#{photo.link}')
       h2 #{photo.title}
       p#mainDesc #{photo.description}
-      if loggedIn
+      if isOwner
         form#deleteForm(method='POST', action='/gallery/#{photo.id}')
           input(type='hidden', name='_method', value='DELETE')
           input#delete(type='submit' value= 'Delete')
