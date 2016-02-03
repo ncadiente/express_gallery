@@ -23,6 +23,7 @@ app.use(session(CONFIG.SESSION));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -30,25 +31,25 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-passport.use(new LocalStrategy(
-  function(username, password, done){
+passport.use(new LocalStrategy({
+  passReqToCallback: true
+  },
+  function(req, username, password, done){
     var user;
     Users.findOne({where : {
       username : username
     }})
-    .then(function(data,err){
-      if(err) return done(err);
+    .then(function(data){
       user = data;
       if(!user){
-        console.log("no user");
+        req.flash("messages", "User does not exist");
         return done(null, false);
       }
       if(user.username === username && user.password !== password){
-        console.log("wrong pw");
+        req.flash("messages", "Password incorrect");
         return done(null, false);
       }
       if(user.username === username && user.password === password){
-        console.log('success');
         userId = user.id;
         loggedInChecker=true;
         return done(null, user);
@@ -66,11 +67,11 @@ app.use( methodOverride(function( req, res ) {
 }));
 
 app.get('/login', function(req, res){
-  res.render('photos/login');
+  res.render('photos/login', {messages : req.flash('messages')});
 });
 
 app.get('/register', function(req,res){
-  res.render('photos/register');
+  res.render('photos/register', {messages : req.flash('messages')});
 });
 
 app.get('/logout', function(req,res){
@@ -82,6 +83,8 @@ app.get('/logout', function(req,res){
 app.post('/login', passport.authenticate('local', {
   successRedirect : '/gallery',
   failureRedirect : '/login',
+  failureFlash : true,
+  succesFlash : true
 }));
 
 function registerValidation(req,res,next){
@@ -116,6 +119,7 @@ app.post('/register', registerValidation, function(req,res){
         });
       });
     } else {
+      req.flash('messages', 'Username taken');
       res.redirect('/register');
     }
   });
@@ -129,7 +133,8 @@ app.get('/', function(req, res) {
       res.render('photos/index', {
         photoMain: data.shift(),
         photos : data,
-        loggedIn: loggedInChecker
+        loggedIn: loggedInChecker,
+        messages : "flashed"
       });
     });
 });
