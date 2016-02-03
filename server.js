@@ -57,16 +57,6 @@ passport.use(new LocalStrategy(
   }
 ));
 
-
-function isAuthenticated(req,res,next){
-  if(!req.isAuthenticated()){
-    console.log('not auth');
-    return res.redirect('/login');
-  }
-  console.log('authenticated');
-  return next();
-}
-
 app.use( methodOverride(function( req, res ) {
   if( req.body && typeof req.body === 'object' && '_method' in req.body ) {
     var method = req.body._method;
@@ -119,7 +109,11 @@ app.post('/register', registerValidation, function(req,res){
         password : req.body.password
       })
       .then(function (data) {
-        res.redirect('/logIn');
+        req.login(data, function(err) {
+          if (err) { return next(err); }
+          loggedInChecker = true;
+          return res.redirect('/gallery');
+        });
       });
     } else {
       res.redirect('/register');
