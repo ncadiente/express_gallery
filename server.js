@@ -15,7 +15,7 @@ var userId;
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
-
+app.use(flash());
 app.set('views', 'templates');
 app.set('view engine', 'jade');
 
@@ -90,7 +90,7 @@ app.get('/logout', function(req,res){
 });
 
 app.post('/login', passport.authenticate('local', {
-  successRedirect : '/',
+  successRedirect : '/gallery',
   failureRedirect : '/login',
 }));
 
