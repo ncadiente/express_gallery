@@ -12,6 +12,7 @@ var methodOverride = require('method-override');
 var flash = require('connect-flash');
 var loggedInChecker = false;
 var userId;
+var bcrypt = require('bcrypt');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -45,15 +46,18 @@ passport.use(new LocalStrategy({
         req.flash("messages", "User does not exist");
         return done(null, false);
       }
-      if(user.username === username && user.password !== password){
-        req.flash("messages", "Password incorrect");
-        return done(null, false);
-      }
-      if(user.username === username && user.password === password){
-        userId = user.id;
-        loggedInChecker=true;
-        return done(null, user);
-      }
+      bcrypt.compare(password, user.password, function(err, res){
+        console.log(res);
+        if(user.username === username && res === false){
+          req.flash("messages", "Password incorrect");
+          return done(null, false);
+        }
+        if(user.username === username && res === true){
+          userId = user.id;
+          loggedInChecker=true;
+          return done(null, user);
+        }
+      });
     });
   }
 ));
@@ -107,15 +111,19 @@ app.post('/register', registerValidation, function(req,res){
   })
   .then(function(data){
     if(!data){
-      Users.create({
-        username : req.body.username,
-        password : req.body.password
-      })
-      .then(function (data) {
-        req.login(data, function(err) {
-          if (err) { return next(err); }
-          loggedInChecker = true;
-          return res.redirect('/gallery');
+      bcrypt.genSalt(10, function(err,salt){
+        bcrypt.hash(req.body.password, salt, function(err,hash){
+          Users.create({
+            username : req.body.username,
+            password : hash
+          })
+          .then(function (data) {
+            req.login(data, function(err) {
+              if (err) { return next(err); }
+              loggedInChecker = true;
+              return res.redirect('/gallery');
+            });
+          });
         });
       });
     } else {
@@ -134,7 +142,6 @@ app.get('/', function(req, res) {
         photoMain: data.shift(),
         photos : data,
         loggedIn: loggedInChecker,
-        messages : "flashed"
       });
     });
 });
