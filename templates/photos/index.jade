@@ -8,8 +8,8 @@ block content
     each photo in photos
       div.photobox
         div.thumbContainerImg
-          img(src='#{photo.link}')
           a(href='gallery/#{photo.id}')
+            img(src='#{photo.link}')
         div.thumbContainer
           h4 #{photo.title}
 
