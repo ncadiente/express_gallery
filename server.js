@@ -12,16 +12,18 @@ var methodOverride = require('method-override');
 var flash = require('connect-flash');
 var loggedInChecker = false;
 var userId;
+var bcrypt = require('bcrypt');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
-
+app.use(flash());
 app.set('views', 'templates');
 app.set('view engine', 'jade');
 
 app.use(session(CONFIG.SESSION));
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -30,42 +32,35 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-passport.use(new LocalStrategy(
-  function(username, password, done){
+passport.use(new LocalStrategy({
+  passReqToCallback: true
+  },
+  function(req, username, password, done){
     var user;
     Users.findOne({where : {
       username : username
     }})
-    .then(function(data,err){
-      if(err) return done(err);
+    .then(function(data){
       user = data;
       if(!user){
-        console.log("no user");
+        req.flash("messages", "User does not exist");
         return done(null, false);
       }
-      if(user.username === username && user.password !== password){
-        console.log("wrong pw");
-        return done(null, false);
-      }
-      if(user.username === username && user.password === password){
-        console.log('success');
-        userId = user.id;
-        loggedInChecker=true;
-        return done(null, user);
-      }
+      bcrypt.compare(password, user.password, function(err, res){
+        console.log(res);
+        if(user.username === username && res === false){
+          req.flash("messages", "Password incorrect");
+          return done(null, false);
+        }
+        if(user.username === username && res === true){
+          userId = user.id;
+          loggedInChecker=true;
+          return done(null, user);
+        }
+      });
     });
   }
 ));
-
-
-function isAuthenticated(req,res,next){
-  if(!req.isAuthenticated()){
-    console.log('not auth');
-    return res.redirect('/login');
-  }
-  console.log('authenticated');
-  return next();
-}
 
 app.use( methodOverride(function( req, res ) {
   if( req.body && typeof req.body === 'object' && '_method' in req.body ) {
@@ -76,11 +71,11 @@ app.use( methodOverride(function( req, res ) {
 }));
 
 app.get('/login', function(req, res){
-  res.render('photos/login');
+  res.render('photos/login', {messages : req.flash('messages')});
 });
 
 app.get('/register', function(req,res){
-  res.render('photos/register');
+  res.render('photos/register', {messages : req.flash('messages')});
 });
 
 app.get('/logout', function(req,res){
@@ -90,8 +85,10 @@ app.get('/logout', function(req,res){
 });
 
 app.post('/login', passport.authenticate('local', {
-  successRedirect : '/',
+  successRedirect : '/gallery',
   failureRedirect : '/login',
+  failureFlash : true,
+  succesFlash : true
 }));
 
 function registerValidation(req,res,next){
@@ -114,14 +111,23 @@ app.post('/register', registerValidation, function(req,res){
   })
   .then(function(data){
     if(!data){
-      Users.create({
-        username : req.body.username,
-        password : req.body.password
-      })
-      .then(function (data) {
-        res.redirect('/logIn');
+      bcrypt.genSalt(10, function(err,salt){
+        bcrypt.hash(req.body.password, salt, function(err,hash){
+          Users.create({
+            username : req.body.username,
+            password : hash
+          })
+          .then(function (data) {
+            req.login(data, function(err) {
+              if (err) { return next(err); }
+              loggedInChecker = true;
+              return res.redirect('/gallery');
+            });
+          });
+        });
       });
     } else {
+      req.flash('messages', 'Username taken');
       res.redirect('/register');
     }
   });
@@ -135,7 +141,7 @@ app.get('/', function(req, res) {
       res.render('photos/index', {
         photoMain: data.shift(),
         photos : data,
-        loggedIn: loggedInChecker
+        loggedIn: loggedInChecker,
       });
     });
 });

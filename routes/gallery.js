@@ -72,7 +72,6 @@ router.get('/',function(req, res){
 });
 
 router.post('/', isAuthenticated, function (req, res) {
-  console.log(req.body.id);
   Photo.create({
     title : req.body.title,
     link : req.body.link,
@@ -86,39 +85,56 @@ router.post('/', isAuthenticated, function (req, res) {
 router.get('/:id/edit', isAuthenticated, function(req, res){
   Photo.findById(req.params.id)
   .then(function(data){
-    res.render('photos/edit', {
-      photo : data
-    });
+    if(req.user.id === data.UserId){
+      res.render('photos/edit', {
+        photo : data
+      });
+    } else {
+      res.send("not authorized");
+    }
   });
 });
 
 router.put('/:id', isAuthenticated, function(req, res){
-  console.log('in put');
-  Photo.update(
-  {
-    updatedAt : 'now()',
-    title : req.body.title,
-    description : req.body.description,
-    link : req.body.link
-  }, {
-    where : {
-      id : req.params.id
-    }
-  })
-  .then(function(){
-    res.redirect('/gallery/' + req.params.id);
-  });
+  Photo.findById(req.params.id)
+    .then(function(data){
+      if(req.user.id === data.UserId){
+        Photo.update(
+        {
+          updatedAt : 'now()',
+          title : req.body.title,
+          description : req.body.description,
+          link : req.body.link
+        }, {
+          where : {
+            id : req.params.id
+          }
+        })
+        .then(function(){
+          res.redirect('/gallery/' + req.params.id);
+        });
+      } else {
+        res.send('not authorized');
+      }
+    });
 });
 
 router.delete('/:id', isAuthenticated, function(req, res){
-  Photo.destroy({
-    where: {
-      id: req.params.id
-    }
-  })
-  .then(function(){
-    res.redirect('/');
-  });
+  Photo.findById(req.params.id)
+    .then(function(data){
+      if(req.user.id === data.UserId){
+        Photo.destroy({
+          where: {
+            id: req.params.id
+          }
+        })
+        .then(function(){
+          res.redirect('/');
+        });
+      } else {
+        console.log('not authorized');
+      }
+    });
 });
 
 module.exports = router;
