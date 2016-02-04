@@ -7,8 +7,10 @@ block content
           img#indexMain(src='#{photoMain.link}')
     each photo in photos
       div.photobox
-        a(href='gallery/#{photo.id}')
+        div.thumbContainerImg
           img(src='#{photo.link}')
-        h4 #{photo.title}
+          a(href='gallery/#{photo.id}')
+        div.thumbContainer
+          h4 #{photo.title}
 
 
