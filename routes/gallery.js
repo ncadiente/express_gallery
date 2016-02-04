@@ -27,7 +27,9 @@ router.use(bodyParser.urlencoded({ extended : true }));
 router.use(userAuth);
 
 router.get('/new', isAuthenticated, function(req, res) {
-  res.render('photos/new');
+  res.render('photos/new', {
+    loggedIn: loggedInChecker
+  });
 });
 
 router.get('/:id', function(req, res) {
